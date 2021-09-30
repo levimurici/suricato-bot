@@ -18,16 +18,6 @@ def echo(update, context):
 def status(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text=status_out)
 
-def textinho(temp, hum, lum):
-    texto = f'Olá, como vai?'\
-        'O status atual da mesa de Levi é'\
-        'Temperatura: {temp}ºC'\
-        'Umidade do Ar: {hum}%'\
-        'Luminosidade: {lum} lummens'\
-        'Até logo! :)'
-    return texto
-
-
 start_handler = CommandHandler('start', start)
 start_handler = CommandHandler('status', status)
 echo_handler = MessageHandler(Filters.text & (~Filters.command), echo)
@@ -42,5 +32,13 @@ if __name__ == '__main__':
         umidade = status_xdk["data"][0]['H']
         temperatura = status_xdk["data"][0]['T']
         luminosidade = status_xdk["data"][0]['L']
+        def textinho(temp, hum, lum):
+            texto = 'Olá, como vai?\n'\
+                'O status atual da mesa de Levi é\n'\
+                f'Temperatura: {temp}ºC\n'\
+                f'Umidade do Ar: {hum}%\n'\
+                f'Luminosidade: {lum} lummens\n'\
+                'Até logo! :)'
+            return texto
         status_out = textinho(temperatura, umidade, luminosidade)
         updater.start_polling()
