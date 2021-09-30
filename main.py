@@ -7,6 +7,7 @@ updater = Updater(token=bot_token, use_context=True)
 dispatcher = updater.dispatcher
 
 status_xdk = ''
+status_out = ''
 
 def start(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Fala aí, colé?!")
@@ -15,7 +16,17 @@ def echo(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
 
 def status(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text=status_xdk)
+    context.bot.send_message(chat_id=update.effective_chat.id, text=status_out)
+
+def textinho(temp, hum, lum):
+    texto = f'Olá, como vai?'\
+        'O status atual da mesa de Levi é'\
+        'Temperatura: {temp}ºC'\
+        'Umidade do Ar: {hum}%'\
+        'Luminosidade: {lum} lummens'\
+        'Até logo! :)'
+    return texto
+
 
 start_handler = CommandHandler('start', start)
 start_handler = CommandHandler('status', status)
@@ -28,4 +39,8 @@ if __name__ == '__main__':
     while True:
         response = requests.get("http://192.168.101.28:3000/station/pull")
         status_xdk = response.json()
+        umidade = status_xdk["data"][0]['H']
+        temperatura = status_xdk["data"][0]['T']
+        luminosidade = status_xdk["data"][0]['L']
+        status_out = textinho(temperatura, umidade, luminosidade)
         updater.start_polling()
