@@ -34,9 +34,9 @@ def text_warning(window):
     return texto
 
 def text_status(status1, status2, status3):
-    texto = 'A janela1 está {status1}!\n'\
-            'A janela2 está {status2}!\n'\
-            'A janela3 está {status3}!\n'
+    texto = f'A janela1 está {status1}!\n'\
+            f'A janela2 está {status2}!\n'\
+            f'A janela3 está {status3}!\n'
     return texto
 
 dispatcher.add_handler(CommandHandler('start', start))
@@ -51,19 +51,13 @@ if __name__ == '__main__':
             for spot in status['sensors']:
                 if spot['control'] == 'true':
                     print('O dispositivo {} foi desativado'.format(spot['name']))
-                    warning_out = text_warning(spot('name'))
-                    warning()
-                    
+                    warning_out = text_warning(spot['name'])
                 if spot['name'] == 'device1/Relay':
                     status_alarms['janela1'] = spot['control']
-                    print("1")
                 elif spot['name'] == 'device2/Relay':
                     status_alarms['janela2'] = spot['control']
-                    print("2")
                 elif spot['name'] == 'device3/Relay':
                     status_alarms['janela3'] = spot['control']
-                    print("3")
             status_out = text_status(status_alarms['janela1'], status_alarms['janela2'], status_alarms['janela3'])
-        print(status)
         updater.start_polling()
         # updater.idle()
