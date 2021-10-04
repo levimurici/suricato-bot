@@ -45,11 +45,17 @@ def warning_check(status_in):
             print('O dispositivo {} foi desativado'.format(spot['name']))
             warning_out = text_warning(spot['name'])
         if spot['name'] == 'device1/Relay':
-            status_alarms['janela1'] = spot['control']
+            if spot['control'] == 'false':
+                status_alarms['janela1'] = 'fechada'
+            else: status_alarms['janela1'] = 'aberta'
         elif spot['name'] == 'device2/Relay':
-            status_alarms['janela2'] = spot['control']
+            if spot['control'] == 'false':
+               status_alarms['janela2'] = 'fechada'
+            else: status_alarms['janela2'] = 'aberta'
         elif spot['name'] == 'device3/Relay':
-            status_alarms['janela3'] = spot['control']
+            if spot['control'] == 'false':
+               status_alarms['janela3'] = 'fechada'
+            else: status_alarms['janela3'] = 'aberta'
 
 dispatcher.add_handler(CommandHandler('start', start))
 dispatcher.add_handler(CommandHandler('status', status))
