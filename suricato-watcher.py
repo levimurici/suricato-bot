@@ -1,7 +1,9 @@
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram import Update
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+import telegram
+import time
 import logging
 import requests
-from telegram.ext.callbackcontext import CallbackContext
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',level=logging.INFO)
 bot_token = '2033615689:AAHOKrylOujHa9fcPJGLn25Yhd78-luj5PQ'
 
@@ -21,15 +23,23 @@ def start(update, context):
 def echo(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
 
-def status(update, context):
+def send_status(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text=status_out)
-    
-# def warning(context: CallbackContext):
-#     job = context.job
-#     context.bot.send_message(job.context, text=warning_out)
 
+def warning(time_delay, message) -> None:
+    bot = telegram.Bot(token=bot_token)
+    chat_id = 1647822787
+    # chat_id = updates[0]["message"]["chat"]["id"]
+    time_delay_in = time_delay
+    for i in range(time_delay_in):
+        if time_delay_in == 1:
+            bot.send_message(text=message, chat_id=chat_id)
+            return
+        time.sleep(1)
+        time_delay_in = time_delay_in-1
+   
 def text_warning(window):
-    texto = 'Se liga, a janela {window} tá aberta!\n'\
+    texto = f'Se liga, a janela {window} tá aberta!\n'\
             'Dá uma olhada pra ver quem tá lá'
     return texto
 
@@ -44,6 +54,7 @@ def warning_check(status_in):
         if spot['control'] == 'true':
             print('O dispositivo {} foi desativado'.format(spot['name']))
             warning_out = text_warning(spot['name'])
+            warning(time_delay=5, message=warning_out)
         if spot['name'] == 'device1/Relay':
             if spot['control'] == 'false':
                 status_alarms['janela1'] = 'fechada'
@@ -58,7 +69,7 @@ def warning_check(status_in):
             else: status_alarms['janela3'] = 'aberta'
 
 dispatcher.add_handler(CommandHandler('start', start))
-dispatcher.add_handler(CommandHandler('status', status))
+dispatcher.add_handler(CommandHandler('status', send_status))
 dispatcher.add_handler(MessageHandler(Filters.text & (~Filters.command), echo))
 
 if __name__ == '__main__':
