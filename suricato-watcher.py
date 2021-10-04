@@ -24,9 +24,9 @@ def echo(update, context):
 def status(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text=status_out)
     
-def warning(context: CallbackContext):
-    job = context.job
-    context.bot.send_message(job.context, text=warning_out)
+# def warning(context: CallbackContext):
+#     job = context.job
+#     context.bot.send_message(job.context, text=warning_out)
 
 def text_warning(window):
     texto = 'Se liga, a janela {window} tá aberta!\n'\
@@ -36,8 +36,20 @@ def text_warning(window):
 def text_status(status1, status2, status3):
     texto = f'A janela1 está {status1}!\n'\
             f'A janela2 está {status2}!\n'\
-            f'A janela3 está {status3}!\n'
+            f'A janela3 está {status3}!'
     return texto
+
+def warning_check(status_in):
+    for spot in status_in['sensors']:
+        if spot['control'] == 'true':
+            print('O dispositivo {} foi desativado'.format(spot['name']))
+            warning_out = text_warning(spot['name'])
+        if spot['name'] == 'device1/Relay':
+            status_alarms['janela1'] = spot['control']
+        elif spot['name'] == 'device2/Relay':
+            status_alarms['janela2'] = spot['control']
+        elif spot['name'] == 'device3/Relay':
+            status_alarms['janela3'] = spot['control']
 
 dispatcher.add_handler(CommandHandler('start', start))
 dispatcher.add_handler(CommandHandler('status', status))
@@ -46,18 +58,8 @@ dispatcher.add_handler(MessageHandler(Filters.text & (~Filters.command), echo))
 if __name__ == '__main__':
     while True:
         response = requests.get("http://192.168.101.28:3000/alarm/pull")
-        status = response.json()
-        def warning_check(status):
-            for spot in status['sensors']:
-                if spot['control'] == 'true':
-                    print('O dispositivo {} foi desativado'.format(spot['name']))
-                    warning_out = text_warning(spot['name'])
-                if spot['name'] == 'device1/Relay':
-                    status_alarms['janela1'] = spot['control']
-                elif spot['name'] == 'device2/Relay':
-                    status_alarms['janela2'] = spot['control']
-                elif spot['name'] == 'device3/Relay':
-                    status_alarms['janela3'] = spot['control']
-            status_out = text_status(status_alarms['janela1'], status_alarms['janela2'], status_alarms['janela3'])
+        status_api = response.json()
+        warning_check(status_api)
+        status_out = text_status(status_alarms['janela1'], status_alarms['janela2'], status_alarms['janela3'])
         updater.start_polling()
         # updater.idle()
