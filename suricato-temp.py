@@ -30,12 +30,9 @@ def textinho(temp, hum, lum):
         'Até logo! :)'
     return texto
 
-start_handler = CommandHandler('start', start)
-status_handler = CommandHandler('status', status)
-echo_handler = MessageHandler(Filters.text & (~Filters.command), echo)
-dispatcher.add_handler(start_handler)
-dispatcher.add_handler(status_handler)
-dispatcher.add_handler(echo_handler)
+dispatcher.add_handler(CommandHandler('start', start))
+dispatcher.add_handler(CommandHandler('status', status))
+dispatcher.add_handler(MessageHandler(Filters.text & (~Filters.command), echo))
 
 if __name__ == '__main__':
     while True:
