@@ -32,11 +32,10 @@ def send_status(update, context):
 def warning(time_delay, message, chat_id):
     bot = telegram.Bot(token=bot_token)
     time_delay_in = time_delay
-    for i in range(time_delay_in):
-        if time_delay:
-            bot.send_message(text=message, chat_id=chat_id)
-        time_delay_in = time_delay_in-1
-        time.sleep(1)
+    if time_delay:
+        bot.send_message(text=message, chat_id=chat_id)
+    time_delay_in = time_delay_in-1
+    time.sleep(1)
 
 def text_warning(window):
     texto = f'Se liga, a janela {window} tá aberta!\n'\
