@@ -7,6 +7,7 @@ import requests
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',level=logging.INFO)
 bot_token = '2033615689:AAHOKrylOujHa9fcPJGLn25Yhd78-luj5PQ'
+api_to_pull ='http://192.168.1.6:3000/alarm/pull' #Criar variáveis de ambiente
 updater = Updater(token=bot_token, use_context=True)
 dispatcher = updater.dispatcher
 chat_id = -524242677
@@ -74,7 +75,7 @@ dispatcher.add_handler(MessageHandler(Filters.text & (~Filters.command), echo))
 if __name__ == '__main__':
     while True:
         updater.start_polling()
-        response = requests.get("http://192.168.101.28:3000/alarm/pull")
+        response = requests.get(api_to_pull)
         status_api = response.json()
         warning_check(status_api, chat_id)
         status_out = text_status(status_alarms['janela1'], status_alarms['janela2'], status_alarms['janela3'])
