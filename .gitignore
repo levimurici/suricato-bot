@@ -1,5 +1,5 @@
-jsbot
-pybot
-teste_req
-./*/node_modules
+./jsbot
+./pybot
+./teste_req
 ./main-bot/node_modules
+./jsbot/node_modules

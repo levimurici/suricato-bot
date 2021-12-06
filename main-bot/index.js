@@ -48,9 +48,10 @@ bot.onText(/\/status_alarmes/, (msg, match) => {
     const resp = match[1];
     let sendData = '';
     
-    let getData = require('./routes/alarms/index.js');
-    getData(function(string){
-      sendData = string;
+    let getData_alarm = require('./routes/alarms/index.js');
+    getData_alarm(function(string_alarm){
+      sendData = string_alarm;
+      console.log(string_alarm)
       if (sendData === undefined) {
         bot.sendMessage(chatId, "data_undefined");
         console.log(`request from ${chatId} and ${sendData}`)
@@ -65,8 +66,21 @@ bot.onText(/\/status_alarmes/, (msg, match) => {
 bot.onText(/\/status_jardim/, (msg, match) => {
   const chatId = msg.chat.id;
   const resp = match[1];
+  let sendData = '';
   
-  bot.sendMessage(chatId, '🌳Status do jardim em Construção🌳');
+  let getData_garden = require('./routes/gardener/index.js');
+  getData_garden(function(string_garden){
+    sendData = string_garden;
+    console.log(string_garden)
+    if (sendData === undefined) {
+      bot.sendMessage(chatId, "data_undefined");
+      console.log(`request from ${chatId} and ${sendData}`)
+    }
+    else {
+      bot.sendMessage(chatId, sendData);
+      console.log(`request from ${chatId}`)
+    }  
+  }); 
 });
 
 bot.onText(/\/seguranca_on/, (msg, match) => {

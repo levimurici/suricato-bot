@@ -1,6 +1,9 @@
 const http = require('http')
+/* const bodyParser = require('body-parser')
+const config = require('config')
+const config = require('../../config/default.json') */
+
 let date_ob = new Date();
-const config = require('../../config/default.json')
 
 module.exports = function(callback){
   const options = {
@@ -30,7 +33,7 @@ module.exports = function(callback){
 
     res.on('end', () => {
       dataInc = JSON.parse(data)
-      dataOut = `Status dos Suricatos vigilantes às ${date_ob.getHours()}:${date_ob.getMinutes()}:
+      dataOut = `Relatório do Suricato vigilante às ${date_ob.getHours()}:${date_ob.getMinutes()}:
       1. O alarme ${dataInc.alarms.suricato01.device} está ${dataInc.alarms.suricato01.control} \n\
       2. O alarme ${dataInc.alarms.suricato02.device} está ${dataInc.alarms.suricato02.control}`
       callback(dataOut);
