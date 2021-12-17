@@ -11,7 +11,7 @@ WORKDIR /home/node/bot/config
 RUN echo "{"api": {"address": "${LOCALHOST}","port": "${LOCALPORT}"},"bot": {"TOKEN": "${BOT_TOKEN}"}}" >> default.json
 RUN cat default.json
 
-WORKDIR /home/node/bot/
+WORKDIR /home/node/bot
 RUN npm install
 
 COPY . .
