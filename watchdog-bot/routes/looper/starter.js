@@ -5,16 +5,11 @@ const config = require('../../config/default.json') */
 
 module.exports = function(callback){
   const options = {
-    hostname: 'localhost',
-    port: 3000,
-    path: '/watchdog/security-loop/show',
+    hostname: config.get('api.address'),
+    port: config.get('api.port'),
+    path: 'watchdog/security-loop/show',
     agent: false,
     method: 'GET'
-    /* hostname: config.get('api.address'),
-    port: config.get('api.port'),
-    path: '/mcu/alarm/data-updated',
-    agent: false,
-    method: 'GET' */
   }
 
   const req = http.request(options, res => {

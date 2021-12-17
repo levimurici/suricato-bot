@@ -7,16 +7,11 @@ let date_ob = new Date();
 
 module.exports = function(callback){
   const options = {
-    hostname: 'localhost',
-    port: 3000,
+    hostname: config.get('api.address'),
+    port: config.get('api.port'),
     path: '/mcu/alarm/data-garden-updated',
     agent: false,
     method: 'GET'
-    /* hostname: config.get('api.address'),
-    port: config.get('api.port'),
-    path: '/mcu/alarm/data-updated',
-    agent: false,
-    method: 'GET' */
   }
 
   const req = http.request(options, res => {
