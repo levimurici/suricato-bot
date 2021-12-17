@@ -12,8 +12,8 @@ image: ## build the docker image from Dockerfile
 	$(DOCKER) build --no-cache -t ${REPOSITORY}:${VERSION} \
         --build-arg VERSION=${VERSION} \
         --build-arg LOCALHOST=${LOCALHOST} \
-        --build-arg LOCALHOST=${LOCALPORT} \
-        --build-arg LOCALHOST=${BOT_TOKEN} \
+        --build-arg LOCALPORT=${LOCALPORT} \
+        --build-arg BOT_TOKEN=${BOT_TOKEN} \
         --build-arg VCS_REF=`git rev-parse --short HEAD` \
         --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` .
 
