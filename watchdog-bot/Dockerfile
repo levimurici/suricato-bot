@@ -18,5 +18,5 @@ COPY . .
 COPY --chown=node:node . .
 
 USER node
-EXPOSE 6566
+EXPOSE 6969
 CMD [ "node", "index.js" ]
