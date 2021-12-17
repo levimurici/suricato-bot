@@ -1,0 +1,4 @@
+express
+node-telegram-bot-api
+config
+body-parser

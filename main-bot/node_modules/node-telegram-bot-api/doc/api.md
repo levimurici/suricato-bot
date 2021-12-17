@@ -49,11 +49,15 @@ TelegramBot
         * [.restrictChatMember(chatId, userId, [options])](#TelegramBot+restrictChatMember) ⇒ <code>Promise</code>
         * [.promoteChatMember(chatId, userId, [options])](#TelegramBot+promoteChatMember) ⇒ <code>Promise</code>
         * [.setChatAdministratorCustomTitle(chatId, userId, customTitle, [options])](#TelegramBot+setChatAdministratorCustomTitle) ⇒ <code>Promise</code>
+        * [.banChatSenderChat(chatId, senderChatId, [options])](#TelegramBot+banChatSenderChat) ⇒ <code>Boolean</code>
+        * [.unbanChatSenderChat(chatId, senderChatId, [options])](#TelegramBot+unbanChatSenderChat) ⇒ <code>Boolean</code>
         * [.setChatPermissions(chatId, chatPermissions, [options])](#TelegramBot+setChatPermissions) ⇒ <code>Promise</code>
         * [.exportChatInviteLink(chatId, [options])](#TelegramBot+exportChatInviteLink) ⇒ <code>Promise</code>
         * [.createChatInviteLink(chatId, [options])](#TelegramBot+createChatInviteLink) ⇒ <code>Object</code>
         * [.editChatInviteLink(chatId, inviteLink, [options])](#TelegramBot+editChatInviteLink) ⇒ <code>Object</code>
         * [.revokeChatInviteLink(chatId, [options])](#TelegramBot+revokeChatInviteLink) ⇒ <code>Object</code>
+        * [.approveChatJoinRequest(chatId, userId, [options])](#TelegramBot+approveChatJoinRequest) ⇒ <code>Boolean</code>
+        * [.declineChatJoinRequest(chatId, userId, [options])](#TelegramBot+declineChatJoinRequest) ⇒ <code>Boolean</code>
         * [.setChatPhoto(chatId, photo, [options], [fileOptions])](#TelegramBot+setChatPhoto) ⇒ <code>Promise</code>
         * [.deleteChatPhoto(chatId, [options])](#TelegramBot+deleteChatPhoto) ⇒ <code>Promise</code>
         * [.setChatTitle(chatId, title, [options])](#TelegramBot+setChatTitle) ⇒ <code>Promise</code>
@@ -584,7 +588,8 @@ Send chat action.
 `typing` for text messages,
 `upload_photo` for photos, `record_video` or `upload_video` for videos,
 `record_voice` or `upload_voice` for audio files, `upload_document` for general files,
-`find_location` for location data.
+`choose_sticker` for stickers, `find_location` for location data,
+`record_video_note` or `upload_video_note` for video notes.
 
 **Kind**: instance method of [<code>TelegramBot</code>](#TelegramBot)  
 **See**: https://core.telegram.org/bots/api#sendchataction  
@@ -700,6 +705,41 @@ Returns True on success.
 | customTitle | <code>String</code> | New custom title for the administrator; 0-16 characters, emoji are not allowed |
 | [options] | <code>Object</code> | Additional Telegram query options |
 
+<a name="TelegramBot+banChatSenderChat"></a>
+
+### telegramBot.banChatSenderChat(chatId, senderChatId, [options]) ⇒ <code>Boolean</code>
+Use this method to ban a channel chat in a supergroup or a channel.
+The owner of the chat will not be able to send messages and join live streams
+on behalf of the chat, unless it is unbanned first.
+The bot must be an administrator in the supergroup or channel for this to work
+and must have the appropriate administrator rights.
+Returns True on success.
+
+**Kind**: instance method of [<code>TelegramBot</code>](#TelegramBot)  
+**See**: https://core.telegram.org/bots/api#banchatsenderchat  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| chatId | <code>Number</code> \| <code>String</code> | Unique identifier for the target group or username of the target supergroup |
+| senderChatId | <code>Number</code> | Unique identifier of the target user |
+| [options] | <code>Object</code> | Additional Telegram query options |
+
+<a name="TelegramBot+unbanChatSenderChat"></a>
+
+### telegramBot.unbanChatSenderChat(chatId, senderChatId, [options]) ⇒ <code>Boolean</code>
+Use this method to unban a previously banned channel chat in a supergroup or channel.
+The bot must be an administrator for this to work and must have the appropriate administrator rights.
+Returns True on success.
+
+**Kind**: instance method of [<code>TelegramBot</code>](#TelegramBot)  
+**See**: https://core.telegram.org/bots/api#unbanchatsenderchat  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| chatId | <code>Number</code> \| <code>String</code> | Unique identifier for the target group or username of the target supergroup |
+| senderChatId | <code>Number</code> | Unique identifier of the target user |
+| [options] | <code>Object</code> | Additional Telegram query options |
+
 <a name="TelegramBot+setChatPermissions"></a>
 
 ### telegramBot.setChatPermissions(chatId, chatPermissions, [options]) ⇒ <code>Promise</code>
@@ -780,6 +820,40 @@ Returns the revoked invite link as ChatInviteLink object.
 | Param | Type | Description |
 | --- | --- | --- |
 | chatId | <code>Number</code> \| <code>String</code> | Unique identifier for the target chat or username of the target supergroup |
+| [options] | <code>Object</code> | Additional Telegram query options |
+
+<a name="TelegramBot+approveChatJoinRequest"></a>
+
+### telegramBot.approveChatJoinRequest(chatId, userId, [options]) ⇒ <code>Boolean</code>
+Use this method to approve a chat join request.
+The bot must be an administrator in the chat for this to work and must have the can_invite_users administrator right.
+Returns True on success.
+
+**Kind**: instance method of [<code>TelegramBot</code>](#TelegramBot)  
+**Returns**: <code>Boolean</code> - True on success  
+**See**: https://core.telegram.org/bots/api#approvechatjoinrequest  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| chatId | <code>Number</code> \| <code>String</code> | Unique identifier for the target chat or username of the target supergroup |
+| userId | <code>Number</code> | Unique identifier of the target user |
+| [options] | <code>Object</code> | Additional Telegram query options |
+
+<a name="TelegramBot+declineChatJoinRequest"></a>
+
+### telegramBot.declineChatJoinRequest(chatId, userId, [options]) ⇒ <code>Boolean</code>
+Use this method to decline a chat join request.
+The bot must be an administrator in the chat for this to work and must have the can_invite_users administrator right.
+Returns True on success.
+
+**Kind**: instance method of [<code>TelegramBot</code>](#TelegramBot)  
+**Returns**: <code>Boolean</code> - True on success  
+**See**: https://core.telegram.org/bots/api#declinechatjoinrequest  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| chatId | <code>Number</code> \| <code>String</code> | Unique identifier for the target chat or username of the target supergroup |
+| userId | <code>Number</code> | Unique identifier of the target user |
 | [options] | <code>Object</code> | Additional Telegram query options |
 
 <a name="TelegramBot+setChatPhoto"></a>
@@ -995,8 +1069,7 @@ Otherwise, message type can be changed arbitrarily. When inline message is edite
 Use previously uploaded file via its file_id or specify a URL.
 On success, the edited Message is returned.
 
-Note that you must provide one of chat_id, message_id, or
-inline_message_id in your request.
+Note that you must provide one of chat_id, message_id, or inline_message_id in your request.
 
 **Kind**: instance method of [<code>TelegramBot</code>](#TelegramBot)  
 **See**: https://core.telegram.org/bots/api#editmessagemedia  
