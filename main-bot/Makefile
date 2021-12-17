@@ -8,6 +8,7 @@ LOCALHOST?=192.168.1.16
 LOCALPORT?=3000
 BOT_TOKEN?=5065547103:AAGZ_ILuJ9ksTFGiGxUEa2fAdFtI9fUa-XE
 
+
 image: ## build the docker image from Dockerfile
 	$(DOCKER) build --no-cache -t ${REPOSITORY}:${VERSION} \
         --build-arg VERSION=${VERSION} \
