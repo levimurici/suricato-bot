@@ -5,7 +5,7 @@ const  jsonSend = {
   "status": "false"
 }
 
-axios.post("http://192.168.1.2:3000/watchdog/security-mode/dump", jsonSend, {
+axios.post("http://192.168.1.10:3000/watchdog/security-mode/dump", jsonSend, {
   headers:{
     'content-type': 'application/json'
   }

@@ -105,7 +105,6 @@ bot.onText(/\/seguranca_off/, (msg, match) => {
     console.log("Security OFF")
   });
   bot.sendMessage(chatId, `Modo de segurança OFF`);
-  
 });
 
 
