@@ -10,7 +10,7 @@ WORKDIR /home/node/bot
 
 COPY package*.json ./
 
-RUN echo "{"api": {"address": "${LOCALHOST}","port": "${LOCALPORT}"},"bot": {"TOKEN": "${BOT_TOKEN}"}}" >> ./config/default.json
+RUN echo "{"api": {"address": "${LOCALHOST}","port": "${LOCALPORT}"},"bot": {"TOKEN": "${BOT_TOKEN}"}}" >> config/default.json
 
 RUN npm install
 
