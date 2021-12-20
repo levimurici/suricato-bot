@@ -1,12 +1,11 @@
 const http = require('http')
-const bodyParser = require('body-parser')
-const config = require('config')
-const config = require('../../config/default.json')
 
 module.exports = function(callback){
   const options = {
-    hostname: config.get('api.address'),
-    port: config.get('api.port'),
+    /* hostname: config.get('api.address'),
+    port: config.get('api.port'), */
+    hostname: "api",
+    port: "3000",
     path: 'watchdog/security-loop/show',
     agent: false,
     method: 'GET'

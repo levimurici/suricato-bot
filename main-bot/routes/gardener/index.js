@@ -1,15 +1,14 @@
 const http = require('http')
-const bodyParser = require('body-parser')
-const config = require('config')
-const config = require('../../config/default.json')
 
 let date_ob = new Date();
 
 module.exports = function(callback){
   const options = {
-    hostname: config.get('api.address'),
-    port: config.get('api.port'),
-    path: '/mcu/alarm/data-garden-updated',
+    /* hostname: config.get('api.address'),
+    port: config.get('api.port'), */
+    hostname: "api",
+    port: "3000",
+    path: '/mcu/garden/data-garden-updated',
     agent: false,
     method: 'GET'
   }

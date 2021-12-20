@@ -1,8 +1,10 @@
 const axios = require('axios')
 const config = require('config')
 
-const api_url = config.get('api.address')
-const api_port = config.get('api.port')
+/* const api_url = config.get('api.address')
+const api_port = config.get('api.port') */
+const api_url = "api"
+const api_port = "3000"
 const route = "/watchdog/security-mode/dump"
 
 module.exports = function (callback){
