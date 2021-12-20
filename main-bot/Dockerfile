@@ -5,8 +5,8 @@ WORKDIR /home/node/bot
 COPY package*.json ./
 
 ARG BOT_TOKEN
-ARG LOCALHOST
-ARG LOCALPORT
+ARG APILOCALHOST
+ARG APILOCALPORT
 WORKDIR /home/node/bot/config
 RUN echo "{"api": {"address": "${LOCALHOST}","port": "${LOCALPORT}"},"bot": {"TOKEN": "${BOT_TOKEN}"}}" >> default.json
 RUN cat default.json

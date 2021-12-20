@@ -4,16 +4,16 @@
 DOCKER=$(shell which docker)
 REPOSITORY?=dendebaiano/suricato-main-bot
 VERSION?=1.0
-LOCALHOST?=192.168.1.16
-LOCALPORT?=3000
+APILOCALHOST?=api
+APILOCALPORT?=3000
 BOT_TOKEN?=5065547103:AAGZ_ILuJ9ksTFGiGxUEa2fAdFtI9fUa-XE
 
 
 image: ## build the docker image from Dockerfile
 	$(DOCKER) build --no-cache -t ${REPOSITORY}:${VERSION} \
         --build-arg VERSION=${VERSION} \
-        --build-arg LOCALHOST=${LOCALHOST} \
-        --build-arg LOCALPORT=${LOCALPORT} \
+        --build-arg LOCALHOST=${APILOCALHOST} \
+        --build-arg LOCALPORT=${APILOCALPORT} \
         --build-arg BOT_TOKEN=${BOT_TOKEN} \
         --build-arg VCS_REF=`git rev-parse --short HEAD` \
         --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` .
