@@ -1,20 +1,15 @@
 const http = require('http')
-/* const bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
 const config = require('config')
-const config = require('../../config/default.json') */
+const config = require('../../config/default.json')
 
 module.exports = function(callback){
   const options = {
-    hostname: 'localhost',
-    port: 3000,
-    path: '/watchdog/mqtt',
-    agent: false,
-    method: 'GET'
-    /* hostname: config.get('api.address'),
+    hostname: config.get('api.address'),
     port: config.get('api.port'),
     path: '/mcu/alarm/data-updated',
     agent: false,
-    method: 'GET' */
+    method: 'GET'
   }
 
   const req = http.request(options, res => {

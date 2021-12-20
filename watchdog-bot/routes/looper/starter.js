@@ -1,7 +1,7 @@
 const http = require('http')
-/* const bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
 const config = require('config')
-const config = require('../../config/default.json') */
+const config = require('../../config/default.json')
 
 module.exports = function(callback){
   const options = {
