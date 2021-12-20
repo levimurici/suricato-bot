@@ -6,7 +6,7 @@ module.exports = function(callback){
     port: config.get('api.port'), */
     hostname: "api",
     port: "3000",
-    path: 'watchdog/security-loop/show',
+    path: '/watchdog/security-loop/show',
     agent: false,
     method: 'GET'
   }
