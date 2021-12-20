@@ -8,7 +8,7 @@ ARG BOT_TOKEN
 ARG APILOCALHOST
 ARG APILOCALPORT
 WORKDIR /home/node/bot/config
-RUN echo "{"api": {"address": "${LOCALHOST}","port": "${LOCALPORT}"},"bot": {"TOKEN": "${BOT_TOKEN}"}}" >> default.json
+RUN echo "{"api": {"address": "${APILOCALHOST}","port": "${APILOCALPORT}"},"bot": {"TOKEN": "${BOT_TOKEN}"}}" >> default.json
 RUN cat default.json
 
 WORKDIR /home/node/bot
