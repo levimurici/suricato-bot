@@ -1,6 +1,6 @@
 const http = require('http')
 
-let date_ob = new Date().getTime();
+let date_ob = new Date();
 
 module.exports = function(callback){
   const options = {
