@@ -1,6 +1,6 @@
 const http = require('http')
 
-let date_ob = new Date();
+let date_ob = new Date().getTime();
 
 module.exports = function(callback){
   const options = {
@@ -29,12 +29,12 @@ module.exports = function(callback){
       dataInc = JSON.parse(data)
       /* dataOut = dataInc */
       dataOut = 
-      `🌳Status do jardim em Construção🌳 \n\
+      `🌳Status do jardim🌳 \n\
       Relatório dos Suricatos jardineiros às ${date_ob.getHours()}:${date_ob.getMinutes()}: \n\
-      1. Temperatura ambiente do jardim: ${dataInc.garden.suricatoEnv.temperature}🌡️ \n\
-      2. Umidade relativa do ar: ${dataInc.garden.suricatoTemp.humidity}💧 \n\
-      3. Temperatura rente ao solo: ${dataInc.garden.suricatoTemp.temperature}🌡️ \n\
-      4. Umidade do solo: ${dataInc.garden.suricatoSoil.soil}💧 \n\ `
+      1. Temperatura ambiente : ${dataInc.garden.suricatoTemp.temperature} 🌡️ \n\
+      2. Umidade relativa do ar: ${dataInc.garden.suricatoTemp.humidity} 💧
+      Até a próxima! 🐻 
+      `
       callback(dataOut);
       return dataOut;
     })
