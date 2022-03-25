@@ -1,48 +1,31 @@
-const http = require('http')
+const axios = require('axios').default;
+// const dataPath = process.env.API_ADDRESS+':'+process.env.API_PORT+'/'+'garden/show/suricato11'
+const dataPath = "http://192.168.1.6:3000/garden/show/suricato11"
 
 let date_ob = new Date();
+var dataObject;
+var messageOut = 'Getting data try again'
 
-module.exports = function(callback){
-  const options = {
-    /* hostname: config.get('api.address'),
-    port: config.get('api.port'), */
-    hostname: "api",
-    port: "3000",
-    path: '/mcu/garden/data-garden-updated',
-    agent: false,
-    method: 'GET'
-  }
+async function getData() {
+    try {
+      const response = await axios.get(dataPath);
+      dataObject = response.data
+      // console.log(dataObject)
+      // console.log(`ESP: ${dataObject.name} ambiente: ${dataObject.info.place} status: ${dataObject.data.control}`)
 
-  const req = http.request(options, res => {
-    let dataOut = '';
-    let data = '';
-    let dataInc = '';
-
-    /* console.log(`statusCode: ${res.statusCode}`) */
-    res.setEncoding("UTF-8");
-
-    res.on('data', (chunk) => {
-      data += chunk;
-    })
-
-    res.on('end', () => {
-      dataInc = JSON.parse(data)
-      /* dataOut = dataInc */
-      dataOut = 
-      `🌳Status do jardim🌳 \n\
-      Relatório dos Suricatos jardineiros às ${date_ob.getHours()}:${date_ob.getMinutes()}: \n\
-      1. Temperatura ambiente : ${dataInc.garden.suricatoTemp.temperature} 🌡️ \n\
-      2. Umidade relativa do ar: ${dataInc.garden.suricatoTemp.humidity} 💧
-      Até a próxima! 🐻 
-      `
-      callback(dataOut);
-      return dataOut;
-    })
-  });
-  req.end();
+       messageOut = `🌳Status do jardim🌳 \n\
+       Relatório do ${dataObject.name} do ${dataObject.info.place} das ${date_ob.getHours()}:${date_ob.getMinutes()}: \n\
+       - Temperatura ambiente : ${dataObject.data.temperature}ºC 🌡️ \n\
+       - Umidade relativa do ar: ${dataObject.data.humidity}% 💧 `
+    } catch (error) {
+      console.error(error);
+    }
+    console.log(messageOut)
 }
 
-/* module.exports.getting_json_data = 
-getting_json_data(function(out_json) {
-  console.log(dataOut)
-}) */
+module.exports = async function(callback){
+    getData();
+    // SetTimeout(() => callback(messageOut), 500);
+    callback(messageOut)
+    messageOut = ''
+}

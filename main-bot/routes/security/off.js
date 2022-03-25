@@ -1,23 +1,16 @@
-const axios = require('axios')
-const config = require('config')
-
-/* const api_url = config.get('api.address')
-const api_port = config.get('api.port')
-const api_url = "api"
-const api_port = "3000" */
-const route = "/watchdog/security-mode/dump"
+const axios = require('axios').default;
+// const dataPath = process.env.API_ADDRESS+':'+process.env.API_PORT+'/'+'alarm/getAllData/type/Alarm'
+const dataPath = "http://192.168.1.6:3000/watchdog/dump"
 
 module.exports = function (callback){
 const  jsonSend = {
-  "status": "false"
+  "name": "securityMode",
+  "data": {
+      "status": "OFF"
+  }
 }
 
-/* axios.post("https://"+api_url+":"+api_port+route, jsonSend, {
-  headers:{
-    'content-type': 'application/json'
-  } */
-
-axios.post("http://api:3000"+route, jsonSend, {
+axios.post(dataPath, jsonSend, {
   headers:{
     'content-type': 'application/json'
   }

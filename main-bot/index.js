@@ -1,28 +1,22 @@
 const TelegramBot = require( 'node-telegram-bot-api' )
 const express = require('express')
 const bodyParser = require('body-parser')
-const config = require('config')
+const CONFIG = require('config')
+require('dotenv').config();
 
 const jsonParser = bodyParser.json()
 const app = express()
 app.use(jsonParser)
 
-const TOKEN = config.get('bot.TOKEN')
+const TOKEN = CONFIG.get('bot.TOKEN')
 const bot = new TelegramBot( TOKEN, { polling: true } )
 
 console.log('Dirname: ' + __dirname);
 
 bot.on('new_chat_members', (msg) => {
-    bot.sendMessage(msg.chat.id, `✋Olá✋, seja bem vindo a nossa toca!😊\n\
-    Eu sou o Suricato Jurubeba e estou aqui para te ajudar. \n\
-
-    Para verificação de Status✅: \n\
-        1. Escreva "/status_jardim", para ativar o suricato jardineiro e verificar o status do quintal. \n\
-        2. Escreva "/status_alarmes", para o suricato vigilante e verificar os alarmes nas janelas. \n\
-    
-    Ativação de modos✅: \n\
-        1. Escreva "/seguranca_on", para ativar o modo watcher \n\
-        2. Escreva "/seguranca_off", para desativar o modo watcher \n\
+    bot.sendMessage(msg.chat.id, `Ahoy!✋, seja bem vindo a nossa toca!😊\n\
+    Sou o Suricato Jurubeba e estou aqui para te ajudar. \n\
+    Mande um "/ajuda" pra começar!
     `)
  })
 
@@ -33,14 +27,14 @@ bot.onText(/\/ajuda/, (msg, match) => {
   bot.sendMessage(chatId, `
   ✋Olá✋, tá precisando de ajuda?🤓🤓
 
-  Para verificação de Status✅: \n\
-      1. Escreva "/status_jardim", para ativar o suricato jardineiro e verificar o status do quintal. \n\
-      2. Escreva "/status_alarmes", para o suricato vigilante e verificar os alarmes nas janelas. \n\
-  
-  Ativação de modos✅: \n\
-      1. Escreva "/seguranca_on", para ativar o modo watcher \n\
-      2. Escreva "/seguranca_off", para desativar o modo watcher \n\
-  `);
+    Para verificação de status✅: \n\
+      /status_jardim, ativa o suricato jardineiro e verifica o quintal. \n\
+      /status_alarmes, pergunta ao suricato vigilante sobre os alarmes de travas. \n\
+
+    Ativação de modos✅: \n\
+      /seguranca_on, para ativar o modo watcher \n\
+      /seguranca_off, para desativar o modo watcher \n\
+`);
 })
 
 bot.onText(/\/status_alarmes/, (msg, match) => {
