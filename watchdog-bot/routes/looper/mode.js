@@ -1,41 +1,31 @@
-const http = require('http')
-const bodyParser = require('body-parser')
+const axios = require('axios').default;
+// const dataPath = process.env.API_ADDRESS+':'+process.env.API_PORT+'/'+'alarm/getAllData/type/Alarm'
+const dataPath = "http://192.168.1.6:3000/watchdog/securityMode"
+var dataObject;
+var messageOut = 'Getting data try again'
 
-module.exports = function(callback){
-  const options = {
-    /* hostname: config.get('api.address'),
-    port: config.get('api.port'), */
-    hostname: "api",
-    port: "3000",
-    path: '/watchdog/security-mode/update',
-    agent: false,
-    method: 'GET'
-  }
+async function getData() {
+    try {
+      const response = await axios.get(dataPath);
+      dataObject = response.data
 
-  const req = http.request(options, res => {
-    let dataOut = '';
-    let dataChunk = '';
-    let dataInc = '';
+    if(dataObject.data.status == "ON"){
+      messageOut = `true`
+    }
 
-    /* console.log(`statusCode: ${res.statusCode}`) */
-    res.setEncoding("UTF-8");
+    if(dataObject.data.status == "OFF"){
+      messageOut = `false`
+    }
 
-    res.on('data', (chunk) => {
-        dataChunk += chunk;
-    })
+    } catch (error) {
+      console.error(error);
+    }
+    // console.log(messageOut)
+}
 
-    res.on('end', () => {
-      dataInc = JSON.parse(dataChunk)
-      if(dataInc.securityStatus.data.status == "true"){
-        dataOut = `true`
-      }
-
-      if(dataInc.securityStatus.data.status == "false"){
-        dataOut = `false`
-      }
-      callback(dataOut);
-      return dataOut;
-    })
-  });
-  req.end();
+module.exports = async function(callback){
+    getData();
+    // SetTimeout(() => callback(messageOut), 500);
+    callback(messageOut)
+    messageOut = ''
 }
