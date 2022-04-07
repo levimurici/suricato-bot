@@ -1,17 +1,21 @@
 const TelegramBot = require( 'node-telegram-bot-api' )
 const express = require('express')
 const bodyParser = require('body-parser')
-const CONFIG = require('config')
 require('dotenv').config();
+const CONFIG = require('./config/config.js')
 
 const jsonParser = bodyParser.json()
 const app = express()
 app.use(jsonParser)
 
-const TOKEN = CONFIG.get('bot.TOKEN')
+console.log("Token -->",CONFIG.bot.token)
+const TOKEN = CONFIG.bot.token
 const bot = new TelegramBot( TOKEN, { polling: true } )
 
 console.log('Dirname: ' + __dirname);
+console.log("Ip da API -->",CONFIG.api.address)
+console.log("Porta da API -->",CONFIG.api.port)
+console.log("Suricato_Garden -->",CONFIG.garden.suricato)
 
 bot.on('new_chat_members', (msg) => {
     bot.sendMessage(msg.chat.id, `Ahoy!✋, seja bem vindo a nossa toca!😊\n\

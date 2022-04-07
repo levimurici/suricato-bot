@@ -1,6 +1,8 @@
+const CONFIG = require('../../config/config.js')
 const axios = require('axios').default;
-// const dataPath = process.env.API_ADDRESS+':'+process.env.API_PORT+'/'+'garden/show/suricato11'
-const dataPath = "http://192.168.1.6:3000/garden/show/suricato11"
+const dataPath = 'http://'+CONFIG.api.address+':'+CONFIG.api.port+'/'+'garden/show/suricato11'
+console.log("Datapath -->",dataPath)
+// const dataPath = "http://192.168.1.101:3000/garden/show/suricato11"
 
 let date_ob = new Date();
 var dataObject;

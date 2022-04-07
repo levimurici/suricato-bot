@@ -1,6 +1,8 @@
+const CONFIG = require('../../config/config.js')
 const axios = require('axios').default;
-// const dataPath = process.env.API_ADDRESS+':'+process.env.API_PORT+'/'+'alarm/getAllData/type/Alarm'
-const dataPath = "http://192.168.1.6:3000/watchdog/dump"
+const dataPath = 'http://'+CONFIG.api.address+':'+CONFIG.api.port+'/'+'watchdog/dump'
+console.log("Datapath -->",dataPath)
+// const dataPath = "http://192.168.1.101:3000/watchdog/dump"
 
 module.exports = function (callback){
 const  jsonSend = {
