@@ -1,0 +1,10 @@
+{
+    "api": {
+        "address": "api",
+        "port": 3000
+    },
+
+    "bot": {
+        "TOKEN": "5048613373:AAHIUMeg9EC5HWYTecDWJqoxYGNfxMbO-54"
+    }
+}
